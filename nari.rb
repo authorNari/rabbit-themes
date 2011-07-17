@@ -86,14 +86,14 @@ match(Slide, Body) do |bodies|
   end
 end
 
-add_image_path("nario-images")
+add_image_path("nari-images")
 unless print?
   @image_slide_number_image ||= "gc_kun.png"
-  @image_slide_number_start_image = "nario-start-flag.png"
-  @image_slide_number_goal_image = "nario-goal-flag.png"
+  @image_slide_number_start_image = "nari-start-flag.png"
+  @image_slide_number_goal_image = "nari-goal-flag.png"
   include_theme("image-slide-number")
   if canvas.allotted_time
-    @image_timer_image ||= "chibi_nario.png"
+    @image_timer_image ||= "chibi_nari.png"
     include_theme("image-timer")
   end
 end
@@ -150,16 +150,21 @@ end
 include_theme("per-slide-background-color")
 include_theme("per-slide-background-image")
 
+# headline-position
+#
+# Usage: 
+#  :headline-position
+#    bottom-right
 match(Slide) do |slides|
   slides.each do |slide|
-    zen_power_point = slide["zen-power-point"]
-    next if zen_power_point.nil?
+    headline_position = slide["headline-position"]
+    next if headline-position.nil?
 
     head = slide.headline
     head.horizontal_centering = false
     head.vertical_centering = false
 
-    case zen_power_point.split("-").first
+    case headline_position.split("-").first
     when "top"
       head.margin_bottom = canvas.height * 0.5
     when "bottom"
@@ -167,7 +172,7 @@ match(Slide) do |slides|
       head.margin_top = canvas.height * 0.5
     end
 
-    case zen_power_point.split("-")[1]
+    case headline-position.split("-")[1]
     when "right"
       head.align = :right
       head.margin_right = canvas.width * 0.05
@@ -181,6 +186,12 @@ match(Slide) do |slides|
 end
 
 # background-image-credit
+#
+# Usage: 
+#  :background-image
+#    images/steal_rabbit.jpg
+#  :background-image-credit
+#    http://www.flickr.com/photos/ryanr/157458385/
 match(Slide) do |slides|
   slides.each do |slide|
     credit = slide["background-image-credit"]
@@ -197,17 +208,5 @@ match(Slide) do |slides|
       canvas.draw_layout(right_layout, (canvas.width - text_width - screen_x(1)), canvas.height - @margin_bottom)
       [x, y, w, h]
     end
-  end
-end
-
-# headline-align
-match(Slide) do |slides|
-  slides.each do |slide|
-    align = slide["headline-align"]
-    next if align.nil?
-    head = slide.headline
-    head.horizontal_centering = false
-    head.vertical_centering = false
-    head.align = align.to_sym
   end
 end
