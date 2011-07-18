@@ -133,6 +133,8 @@ def slide_params(slide)
   res
 end
 
+
+# All slide property were used first slide property.
 match(Slide) do |slides|
   slides.each_with_index do |slide, index|
     if index.zero?
@@ -146,7 +148,6 @@ match(Slide) do |slides|
   end
 end
 
-# Zen
 include_theme("per-slide-background-color")
 include_theme("per-slide-background-image")
 
@@ -158,7 +159,7 @@ include_theme("per-slide-background-image")
 match(Slide) do |slides|
   slides.each do |slide|
     headline_position = slide["headline-position"]
-    next if headline-position.nil?
+    next if headline_position.nil?
 
     head = slide.headline
     head.horizontal_centering = false
@@ -172,7 +173,7 @@ match(Slide) do |slides|
       head.margin_top = canvas.height * 0.5
     end
 
-    case headline-position.split("-")[1]
+    case headline_position.split("-")[1]
     when "right"
       head.align = :right
       head.margin_right = canvas.width * 0.05
